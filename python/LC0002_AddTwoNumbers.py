@@ -75,30 +75,50 @@ def to_list(node: ListNode) -> list[int]:
 
     return digits
 
-test_cases = [
-    ([2, 4, 3], [5, 6, 4], [7, 0, 8]),       # 342 + 465 = 807
-    ([0], [0], [0]),                         # 0 + 0 = 0
-    ([0], [3, 2, 1], [3, 2, 1]),             # 0 + 123 = 123
-    ([2], [3], [5]),                         # 2 + 3 = 5
-    ([5], [5], [0, 1]),                      # 5 + 5 = 10
-    ([9, 9, 9], [1], [0, 0, 0, 1]),          # 999 + 1 = 1000
-    ([1], [9, 9], [0, 0, 1]),                # 1 + 99 = 100
-    ([1, 2], [3, 4, 5], [4, 6, 5]),          # 21 + 543 = 564
-    ([0, 1], [0, 9], [0, 0, 1]),             # 10 + 90 = 100
-    ([9, 9, 9, 9, 9, 9, 9], [9, 9, 9, 9], [8, 9, 9, 9, 0, 0, 0, 1]),    # 9999999 + 9999 = 10009998
-]
+def test_cases():
+    return [
+        ([2, 4, 3], [5, 6, 4], [7, 0, 8]),       # 342 + 465 = 807
+        ([0], [0], [0]),                         # 0 + 0 = 0
+        ([0], [3, 2, 1], [3, 2, 1]),             # 0 + 123 = 123
+        ([2], [3], [5]),                         # 2 + 3 = 5
+        ([5], [5], [0, 1]),                      # 5 + 5 = 10
+        ([9, 9, 9], [1], [0, 0, 0, 1]),          # 999 + 1 = 1000
+        ([1], [9, 9], [0, 0, 1]),                # 1 + 99 = 100
+        ([1, 2], [3, 4, 5], [4, 6, 5]),          # 21 + 543 = 564
+        ([0, 1], [0, 9], [0, 0, 1]),             # 10 + 90 = 100
+        (
+            [9, 9, 9, 9, 9, 9, 9],
+            [9, 9, 9, 9],
+            [8, 9, 9, 9, 0, 0, 0, 1],
+        ),                                        # 9999999 + 9999 = 10009998
+    ]
 
-for case_number, (digits1, digits2, expected) in enumerate(test_cases, start=1):
-    l1 = to_linked_list(digits1)
-    l2 = to_linked_list(digits2)
 
-    result = to_list(add_two_numbers(l1, l2))
+def main():
+    cases = test_cases()
 
-    assert result == expected, (
-        f"Case {case_number} failed: "
-        f"expected {expected}, got {result}"
-    )
+    for case_number, (digits1, digits2, expected) in enumerate(cases, start=1):
+        l1 = to_linked_list(digits1)
+        l2 = to_linked_list(digits2)
 
-    print(f"Case {case_number} passed: {result}")
+        result = to_list(add_two_numbers(l1, l2))
 
-print("All 10 tests passed!")
+        assert result == expected, (
+            f"Case {case_number} failed: "
+            f"digits1={digits1}, "
+            f"digits2={digits2}, "
+            f"expected={expected}, "
+            f"got={result}"
+        )
+
+        print(
+            f"Case {case_number}: "
+            f"{digits1} + {digits2} -> "
+            f"{result} PASSED"
+        )
+
+    print(f"\nAll {len(cases)} tests passed!")
+
+
+if __name__ == "__main__":
+    main()

@@ -35,7 +35,7 @@ def brute_force(s: str) -> int:
 
             seen.add(s[j])
 
-            length = j - 1 + 1
+            length = j - i + 1
             max_len = max(max_len, length)
 
     return max_len
@@ -79,25 +79,41 @@ def sliding_window(s: str) -> int:
 
     return max_len
 
-# Test cases
-test_cases = [
-    ("abcabcbb", 3),
-    ("bbbbb", 1),
-    ("pwwkew", 3),
-    ("", 0),
-    ("a", 1),
-    ("au", 2),
-    ("dvdf", 3),
-    ("abba", 2),
-    ("abcdef", 6),
-    ("tmmzuxt", 5),
-]
+def test_cases():
+    return [
+        ("abcabcbb", 3),
+        ("bbbbb", 1),
+        ("pwwkew", 3),
+        ("", 0),
+        ("a", 1),
+        ("au", 2),
+        ("dvdf", 3),
+        ("abba", 2),
+        ("abcdef", 6),
+        ("tmmzuxt", 5),
+    ]
 
-for s, expected in test_cases:
-    result = brute_force(s)
 
-    print(f"Input: {s!r}")
-    print(f"Expected: {expected}")
-    print(f"Result: {result}")
-    print("PASS" if result == expected else "FAIL")
-    print("-" * 30)
+def main():
+    cases = test_cases()
+
+    for case_number, (s, expected) in enumerate(cases, start=1):
+        result = brute_force(s)
+
+        assert result == expected, (
+            f"Case {case_number} failed: "
+            f"input={s!r}, "
+            f"expected={expected}, "
+            f"got={result}"
+        )
+
+        print(
+            f"Case {case_number}: "
+            f"input={s!r}, "
+            f"expected={expected}, "
+            f"result={result} PASSED"
+        )
+
+
+if __name__ == "__main__":
+    main()

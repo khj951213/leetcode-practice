@@ -3,9 +3,9 @@
 Leetcode Question 1. Two Sum
 ----------------------------------------
 You are given an array of integers nums and an integer `target`, 
-return indices of the two numbers such that they add up to `target.
+return indices of the two numbers such that they add up to `target`.
 
-You may assume that each input would have excatly one solution, 
+You may assume that each input would have exactly one solution, 
 and you may not use the same element twice.
 
 You can return the answer in any order.
@@ -54,28 +54,50 @@ def hashmap(nums: list[int], target: int) -> list[int]:
     return []
 
 
-# Test cases
-test_cases = [
-    ([2, 7, 11, 15], 9, [0, 1]),                        # Basic example
-    ([3, 2, 4], 6, [1, 2]),                             # Pair in the middle/end
-    ([3, 3], 6, [0, 1]),                                # Duplicate numbers
-    ([-3, 4, 3, 90], 0, [0, 2]),                        # Negative and positive
-    ([-8, -3, -5, -1], -9, [0, 3]),                     # All negative numbers
-    ([0, 4, 3, 0], 0, [0, 3]),                          # Two zeros
-    ([5, 0, 2, 8], 8, [1, 3]),                          # Zero and a positive number
-    ([1, 2, 3, 4, 9], 10, [0, 4]),                      # First and last elements
-    ([3, 2, 4], 6, [1, 2]),                             # Cannot reuse the first 3
-    ([1_000_000_000, -1_000_000_000, 5], 0, [0, 1]),    # Large numbers
-]
+def test_cases():
+    return [
+        ([2, 7, 11, 15], 9, [0, 1]),                        # Basic example
+        ([3, 2, 4], 6, [1, 2]),                             # Pair in the middle/end
+        ([3, 3], 6, [0, 1]),                                # Duplicate numbers
+        ([-3, 4, 3, 90], 0, [0, 2]),                        # Negative and positive
+        ([-8, -3, -5, -1], -9, [0, 3]),                     # All negative numbers
+        ([0, 4, 3, 0], 0, [0, 3]),                          # Two zeros
+        ([5, 0, 2, 8], 8, [1, 3]),                          # Zero and a positive number
+        ([1, 2, 3, 4, 9], 10, [0, 4]),                      # First and last elements
+        ([3, 2, 4], 6, [1, 2]),                             # Cannot reuse the first 3
+        ([1_000_000_000, -1_000_000_000, 5], 0, [0, 1]),    # Large numbers
+    ]
 
-for solution in (brute_force, hashmap):
-    for case_number, (nums, target, expected) in enumerate(test_cases, start=1):
-        result = solution(nums, target)
 
-        # Either index order is valid.
-        assert sorted(result) == sorted(expected), (
-            f"{solution.__name__}: case {case_number} failed. "
-            f"Expected {expected}, got {result}"
-        )
+def main():
+    cases = test_cases()
 
-    print(f"{solution.__name__}: all 10 tests passed!")
+    for solution in (brute_force, hashmap):
+        print(f"\nTesting {solution.__name__}")
+
+        for case_number, (nums, target, expected) in enumerate(cases, start=1):
+            result = solution(nums, target)
+
+            # Either index order is valid.
+            assert sorted(result) == sorted(expected), (
+                f"{solution.__name__}: "
+                f"case {case_number} failed. "
+                f"nums={nums}, "
+                f"target={target}, "
+                f"expected={expected}, "
+                f"got={result}"
+            )
+
+            print(
+                f"Case {case_number}: "
+                f"nums={nums}, "
+                f"target={target}, "
+                f"expected={expected}, "
+                f"result={result} PASSED"
+            )
+
+        print(f"{solution.__name__}: all {len(cases)} tests passed!")
+
+
+if __name__ == "__main__":
+    main()
